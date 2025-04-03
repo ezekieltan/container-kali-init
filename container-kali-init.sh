@@ -1,9 +1,13 @@
 apt update
 apt full-upgrade -y
 apt install -y kali-linux-core
-apt install -y which wget file git zip nano openssl tcpdump iproute2 net-tools xz-utils python3.13-venv
-apt install -y nikto nmap peass 
+apt install -y which wget curl file git zip nano openssl tcpdump iproute2 net-tools xz-utils python3.13-venv
+apt install -y nmap
+#apt install -y nikto
+#apt install -y peass 
 #apt install -y gobuster sqlmap metasploit-framework chisel sqlmap
+
+curl -sSL https://raw.githubusercontent.com/ezekieltan/linpeas-splitted/refs/heads/main/linpeas-splitted.sh | bash
 
 target_directory="/root/software"
 mkdir -p ${target_directory}
