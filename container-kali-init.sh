@@ -40,8 +40,8 @@ chisel_version="1.10.1"
 wget https://github.com/jpillora/chisel/archive/refs/tags/v${chisel_version}.tar.gz -O chisel-v${chisel_version}.tar.gz
 tar -zxvf chisel-v${chisel_version}.tar.gz -C ${target_directory}
 cd ${target_directory}/chisel-${chisel_version}
-garble build -o ${target_directory}/chisel.elf
-#garble build -seed="$random_seed_generated" -o ${target_directory}/chisel.elf
+#garble build -o ${target_directory}/chisel.elf
+garble build -seed="$random_seed_generated" -o ${target_directory}/chisel.elf
 cd ${target_directory}
 rm -rf chisel-${chisel_version}
 mv chisel-v${chisel_version}.tar.gz ${backup_directory}
@@ -52,8 +52,8 @@ pspy_version="1.2.1"
 wget https://github.com/DominicBreuker/pspy/archive/refs/tags/v${pspy_version}.tar.gz -O pspy-v${pspy_version}.tar.gz
 tar -zxvf pspy-v${pspy_version}.tar.gz -C ${target_directory}
 cd ${target_directory}/pspy-${pspy_version}
-garble build -o ${target_directory}/pspy.elf
-#garble build --seed="$random_seed_generated" -o ${target_directory}/pspy.elf
+#garble build -o ${target_directory}/pspy.elf
+garble build --seed="$random_seed_generated" -o ${target_directory}/pspy.elf
 cd ${target_directory}
 rm -rf pspy-${pspy_version}
 mv pspy-v${pspy_version}.tar.gz ${backup_directory}
