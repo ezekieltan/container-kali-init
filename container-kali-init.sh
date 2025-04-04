@@ -1,37 +1,83 @@
 apt update
 apt full-upgrade -y
 apt install -y kali-linux-core
-apt install -y which wget curl file git zip nano openssl tcpdump iproute2 net-tools xz-utils python3.13-venv
-apt install -y nmap
-#apt install -y nikto
-#apt install -y peass 
-#apt install -y gobuster sqlmap metasploit-framework chisel sqlmap
+apt install -y which wget curl file git zip nano openssl tcpdump iproute2 net-tools xz-utils python3.13-venv nmap gnupg
+#apt install -y nikto peass gobuster sqlmap metasploit-framework chisel sqlmap
 
-curl -sSL https://raw.githubusercontent.com/ezekieltan/linpeas-splitted/refs/heads/main/linpeas-splitted.sh | bash
 
+#INITAL SETUP
 target_directory="/root/software"
 mkdir -p ${target_directory}
 cd ${target_directory}
 backup_directory="${target_directory}/backup"
 mkdir -p ${backup_directory}
 
-
 mkdir -p ${target_directory}/python-sandbox
 python3 -m venv ${target_directory}/python-sandbox/venv
 ${target_directory}/python-sandbox/venv/bin/pip install requests cryptography bcrypt
 
+random_seed_generated=$(< /dev/urandom tr -dc 'A-Za-z0-9' | head -c 20)
+encryption_password="C0nv0lution(*)"
 
 
 
-wget https://github.com/DominicBreuker/pspy/releases/download/v1.2.1/pspy64 -P ${target_directory} -O pspy64
+#DOWNLOADING ALL THE THINGS
+curl -sSL https://raw.githubusercontent.com/ezekieltan/linpeas-splitted/refs/heads/main/linpeas-splitted.sh | bash
+
+
+go_version="1.24.2"
+wget https://go.dev/dl/go${go_version}.linux-amd64.tar.gz -O go${go_version}.linux-amd64.tar.gz
+rm -rf /usr/local/go && tar -C /usr/local -xzf go${go_version}.linux-amd64.tar.gz
+echo "export PATH=\$PATH:/usr/local/go/bin" >> /root/.bashrc
+source /root/.bashrc
+
+go install mvdan.cc/garble@latest
+echo "export PATH=\$PATH:/root/go/bin" >> /root/.bashrc
+source /root/.bashrc 
+
 
 chisel_version="1.10.1"
-wget https://github.com/jpillora/chisel/releases/download/v1.10.1/chisel_${chisel_version}_linux_amd64.gz -P ${target_directory} -O chisel_${chisel_version}_linux_amd64.gz
-wget https://github.com/jpillora/chisel/releases/download/v1.10.1/chisel_${chisel_version}_windows_amd64.gz -O -P ${target_directory} -O chisel_${chisel_version}_windows_amd64.gz
-gzip -d ${target_directory}/chisel_${chisel_version}_windows_amd64.gz
-gzip -d ${target_directory}/chisel_${chisel_version}_linux_amd64.gz
-mv ${target_directory}/chisel_${chisel_version}_windows_amd64 ${target_directory}/chisel.exe
-mv ${target_directory}/chisel_${chisel_version}_linux_amd64 ${target_directory}/chisel.elf
+wget https://github.com/jpillora/chisel/archive/refs/tags/v${chisel_version}.tar.gz -O chisel-v${chisel_version}.tar.gz
+tar -zxvf chisel-v${chisel_version}.tar.gz -C ${target_directory}
+cd ${target_directory}/chisel-${chisel_version}
+garble build -o ${target_directory}/chisel.elf
+#garble build -seed="$random_seed_generated" -o ${target_directory}/chisel.elf
+cd ${target_directory}
+rm -rf chisel-${chisel_version}
+mv chisel-v${chisel_version}.tar.gz ${backup_directory}
+gpg --batch --yes --passphrase "$encryption_password" -c ${backup_directory}/chisel-v${chisel_version}.tar.g	z
+rm -rf ${backup_directory}/chisel-v${chisel_version}.tar.gz
+
+pspy_version="1.2.1"
+wget https://github.com/DominicBreuker/pspy/archive/refs/tags/v${pspy_version}.tar.gz -O pspy-v${pspy_version}.tar.gz
+tar -zxvf pspy-v${pspy_version}.tar.gz -C ${target_directory}
+cd ${target_directory}/pspy-${pspy_version}
+garble build -o ${target_directory}/pspy.elf
+#garble build --seed="$random_seed_generated" -o ${target_directory}/pspy.elf
+cd ${target_directory}
+rm -rf pspy-${pspy_version}
+mv pspy-v${pspy_version}.tar.gz ${backup_directory}
+gpg --batch --yes --passphrase "$encryption_password" -c ${backup_directory}/pspy-v${pspy_version}.tar.gz
+rm -rf ${backup_directory}/pspy-v${pspy_version}.tar.gz
+
+
+
+
+# wget https://github.com/DominicBreuker/pspy/releases/download/v1.2.1/pspy64 -P ${target_directory} -O pspy64
+
+# chisel_version="1.10.1"
+# wget https://github.com/jpillora/chisel/releases/download/v1.10.1/chisel_${chisel_version}_linux_amd64.gz -P ${target_directory} -O chisel_${chisel_version}_linux_amd64.gz
+# wget https://github.com/jpillora/chisel/releases/download/v1.10.1/chisel_${chisel_version}_windows_amd64.gz -O -P ${target_directory} -O chisel_${chisel_version}_windows_amd64.gz
+# gzip -d ${target_directory}/chisel_${chisel_version}_windows_amd64.gz
+# gzip -d ${target_directory}/chisel_${chisel_version}_linux_amd64.gz
+# mv ${target_directory}/chisel_${chisel_version}_windows_amd64 ${target_directory}/chisel.exe
+# mv ${target_directory}/chisel_${chisel_version}_linux_amd64 ${target_directory}/chisel.elf
+
+
+
+
+
+
 
 
 
