@@ -30,6 +30,7 @@ wget https://go.dev/dl/go${go_version}.linux-amd64.tar.gz -O go${go_version}.lin
 rm -rf /usr/local/go && tar -C /usr/local -xzf go${go_version}.linux-amd64.tar.gz
 echo "export PATH=\$PATH:/usr/local/go/bin" >> /root/.bashrc
 source /root/.bashrc
+mv go${go_version}.linux-amd64.tar.gz ${backup_directory}
 
 go install mvdan.cc/garble@latest
 echo "export PATH=\$PATH:/root/go/bin" >> /root/.bashrc
@@ -41,11 +42,11 @@ wget https://github.com/jpillora/chisel/archive/refs/tags/v${chisel_version}.tar
 tar -zxvf chisel-v${chisel_version}.tar.gz -C ${target_directory}
 cd ${target_directory}/chisel-${chisel_version}
 #garble build -o ${target_directory}/chisel.elf
-garble build -seed="$random_seed_generated" -o ${target_directory}/chisel.elf
+garble --seed="$random_seed_generated" build -o ${target_directory}/chisel.elf 
 cd ${target_directory}
 rm -rf chisel-${chisel_version}
 mv chisel-v${chisel_version}.tar.gz ${backup_directory}
-gpg --batch --yes --passphrase "$encryption_password" -c ${backup_directory}/chisel-v${chisel_version}.tar.g	z
+gpg --batch --yes --passphrase "$encryption_password" -c ${backup_directory}/chisel-v${chisel_version}.tar.gz
 rm -rf ${backup_directory}/chisel-v${chisel_version}.tar.gz
 
 pspy_version="1.2.1"
@@ -53,7 +54,7 @@ wget https://github.com/DominicBreuker/pspy/archive/refs/tags/v${pspy_version}.t
 tar -zxvf pspy-v${pspy_version}.tar.gz -C ${target_directory}
 cd ${target_directory}/pspy-${pspy_version}
 #garble build -o ${target_directory}/pspy.elf
-garble build --seed="$random_seed_generated" -o ${target_directory}/pspy.elf
+garble --seed="$random_seed_generated" build -o ${target_directory}/pspy.elf
 cd ${target_directory}
 rm -rf pspy-${pspy_version}
 mv pspy-v${pspy_version}.tar.gz ${backup_directory}
