@@ -13,7 +13,7 @@ install_deb() {
   local backup_directory=$4
 
   # Install the package
-  dpkg -i ${target_directory}/${tool_name}.${extension}
+  dpkg -i ${target_directory}/${tool_name}.${extension} > /dev/null
 
   # Backup the .deb file
   mv -f ${target_directory}/${tool_name}.${extension} ${backup_directory}
@@ -84,12 +84,15 @@ install() {
     echo "Unsupported file type"
     return 1
   fi
-
+  
   # Download the archive/package/file
-  wget ${url} -P ${target_directory} -O ${tool_name}.${extension}
+  echo "Downloading ${tool_name}"
+  wget -qO- ${url} -P ${target_directory} -O ${tool_name}.${extension}
+  echo "Done."
 
 
 
+  echo "Installing ${tool_name}"
   if [[ ${url} =~ \.(tar\.gz|tar\.xz|zip)$ ]]; then
     install_archive $tool_name ${extension} $target_directory $backup_directory $strip_archive $encryption_password
   elif [[ ${url} =~ \.deb$ ]]; then
@@ -100,6 +103,8 @@ install() {
     echo "Unsupported file type"
     return 1
   fi
+  
+  echo "${tool_name} installed."
 }
 
 # Function to download, extract, build, and encrypt a project
