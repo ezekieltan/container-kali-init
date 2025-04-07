@@ -114,6 +114,7 @@ garble_build() {
   random_seed_generated=$4
 
   # Build the project
+  echo "garbling ${tool_name}"
   cd ${target_directory}/${tool_name}
   if [ -n "$random_seed_generated" ]; then
       garble --seed="$random_seed_generated" build -o ${target_directory}/${tool_name}.elf
@@ -124,6 +125,8 @@ garble_build() {
 
   # Remove the unencrypted source code directory
   rm -rf ${target_directory}/${tool_name}
+  
+  echo "${tool_name} garbled"
 }
 
 
@@ -145,12 +148,12 @@ encryption_password="C0nv0lution(*)"
 
 
 #DOWNLOADING ALL THE THINGS
-wget https://raw.githubusercontent.com/ezekieltan/linpeas-splitted/refs/heads/main/linpeas-splitted.sh -O linpeas-splitted.sh
+wget -qO- https://raw.githubusercontent.com/ezekieltan/linpeas-splitted/refs/heads/main/linpeas-splitted.sh -O linpeas-splitted.sh
 chmod +x linpeas-splitted.sh
 ./linpeas-splitted.sh "lp.sh" "$random_seed_generated"
 
 go_version="1.24.2"
-wget https://go.dev/dl/go${go_version}.linux-amd64.tar.gz -O go${go_version}.linux-amd64.tar.gz
+wget -qO- https://go.dev/dl/go${go_version}.linux-amd64.tar.gz -O go${go_version}.linux-amd64.tar.gz
 rm -rf /usr/local/go && tar -C /usr/local -xzf go${go_version}.linux-amd64.tar.gz
 echo "export PATH=\$PATH:/usr/local/go/bin" >> /root/.bashrc
 source /root/.bashrc
