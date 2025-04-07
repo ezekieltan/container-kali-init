@@ -4,8 +4,6 @@ apt install -y kali-linux-core
 apt install -y which wget curl file git zip nano openssl tcpdump iproute2 net-tools xz-utils python3.13-venv nmap gnupg
 #apt install -y nikto peass gobuster sqlmap metasploit-framework chisel sqlmap
 
-
-
 install_deb() {
   local tool_name=$1
   local extension=$2
