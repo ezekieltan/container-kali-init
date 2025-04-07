@@ -146,16 +146,16 @@ encryption_password="C0nv0lution(*)"
 
 
 #DOWNLOADING ALL THE THINGS
-wget -qO- https://raw.githubusercontent.com/ezekieltan/linpeas-splitted/refs/heads/main/linpeas-splitted.sh -O linpeas-splitted.sh
+wget -qO- https://raw.githubusercontent.com/ezekieltan/linpeas-splitted/refs/heads/main/linpeas-splitted.sh -O ${target_directory}/linpeas-splitted.sh
 chmod +x linpeas-splitted.sh
 ./linpeas-splitted.sh "lp.sh" "$random_seed_generated"
 
 go_version="1.24.2"
-wget -qO- https://go.dev/dl/go${go_version}.linux-amd64.tar.gz -O go${go_version}.linux-amd64.tar.gz
-rm -rf /usr/local/go && tar -C /usr/local -xzf go${go_version}.linux-amd64.tar.gz
+wget -qO- https://go.dev/dl/go${go_version}.linux-amd64.tar.gz -O  ${target_directory}/go${go_version}.linux-amd64.tar.gz
+rm -rf /usr/local/go && tar -C /usr/local -xzf ${target_directory}/go${go_version}.linux-amd64.tar.gz
 echo "export PATH=\$PATH:/usr/local/go/bin" >> /root/.bashrc
 source /root/.bashrc
-mv go${go_version}.linux-amd64.tar.gz ${backup_directory}
+mv  ${target_directory}/go${go_version}.linux-amd64.tar.gz ${backup_directory}
 
 go install mvdan.cc/garble@latest
 echo "export PATH=\$PATH:/root/go/bin" >> /root/.bashrc
