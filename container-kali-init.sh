@@ -147,8 +147,8 @@ encryption_password="C0nv0lution(*)"
 
 #DOWNLOADING ALL THE THINGS
 wget -qO- https://raw.githubusercontent.com/ezekieltan/linpeas-splitted/refs/heads/main/linpeas-splitted.sh -O ${target_directory}/linpeas-splitted.sh
-chmod +x linpeas-splitted.sh
-./linpeas-splitted.sh "lp.sh" "$random_seed_generated"
+chmod +x ${target_directory}/linpeas-splitted.sh
+${target_directory}/linpeas-splitted.sh "lp.sh" "$random_seed_generated"
 
 go_version="1.24.2"
 wget -qO- https://go.dev/dl/go${go_version}.linux-amd64.tar.gz -O  ${target_directory}/go${go_version}.linux-amd64.tar.gz
