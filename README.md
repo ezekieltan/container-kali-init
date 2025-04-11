@@ -3,5 +3,13 @@ A script to initalise a Kali Linux container for security testing of kubernetes 
 
 ## Instructions
 - Pull https://hub.docker.com/r/kalilinux/kali-rolling
-- Transfer script to container
-- Enter shell and run script
+- Then,
+
+
+```
+apt update
+apt install -y wget
+cd root
+wget https://raw.githubusercontent.com/ezekieltan/container-kali-init/refs/heads/main/container-kali-init.sh
+source ./container-kali-init.sh
+```
