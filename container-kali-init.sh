@@ -86,7 +86,7 @@ install() {
   # Download the archive/package/file
   echo "Downloading ${tool_name}"
   wget -qO- ${url} -P ${target_directory} -O ${tool_name}.${extension}
-  echo "Done."
+  echo "${tool_name} downloaded"
 
 
 
