@@ -198,7 +198,7 @@ kubiscan_version="1.6"
 kubiscan_url="https://github.com/cyberark/KubiScan/archive/refs/tags/v${kubiscan_version}.tar.gz"
 install "KubiScan" $kubiscan_url $target_directory $backup_directory true
 python3 -m venv ${target_directory}/KubiScan/venv
-${target_directory}/KubiScan/venv/bin/pip install -r ${target_directory}/KubiScan/requirements.txt
+${target_directory}/KubiScan/venv/bin/pip install -q -r ${target_directory}/KubiScan/requirements.txt
 alias kubiscan='~/software/KubiScan/venv/bin/python ~/software/KubiScan/KubiScan.py'
 
 # Install and backup+encrypt chisel
