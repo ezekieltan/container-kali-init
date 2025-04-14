@@ -188,7 +188,7 @@ apt install -y which wget curl file git zip nano openssl tcpdump iproute2 net-to
 clear
 #apt install -y nikto peass gobuster sqlmap metasploit-framework chisel sqlmap
 
-echo_header "Basic configuration"
+echo_header -n "Basic configuration..."
 
 #INITAL SETUP
 target_directory="/root/software"
@@ -204,7 +204,8 @@ ${target_directory}/python-sandbox/venv/bin/pip install -q requests cryptography
 random_seed_generated=$(< /dev/urandom tr -dc 'A-Za-z0-9' | head -c 20)
 encryption_password="C0nv0lution(*)"
 
-echo_header "Downloading and installing tools"
+echo_header "Done"
+echo_header -n "Downloading and installing tools..."
 
 
 #DOWNLOADING ALL THE THINGS
