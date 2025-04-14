@@ -1,16 +1,13 @@
-apt update
-clear
-apt full-upgrade -y
-clear
-apt install -y kali-linux-core
-clear
-apt install -y which wget curl file git zip nano openssl tcpdump iproute2 net-tools xz-utils python3.13-venv nmap gnupg
-clear
-#apt install -y nikto peass gobuster sqlmap metasploit-framework chisel sqlmap
 
 echo_colour_bold() {
   local colour=$1
   local text="${*:2}"
+
+  local newline=true
+  if [[ $1 == "-n" ]]; then
+    newline=false
+    shift
+  fi
 
   # Define colour codes
   case "$colour" in
@@ -25,14 +22,27 @@ echo_colour_bold() {
     *)       echo "Unknown colour: $colour"; return 1 ;;
   esac
 
-  # \e[1;${code}m makes it bold and coloured
-  echo -e "\e[1;${code}m${text}\e[0m"
+  if [[ $newline == false ]]; then
+    # \e[1;${code}m makes it bold and coloured
+    echo -ne "\e[1;${code}m${text}\e[0m"
+  else
+    echo -e "\e[1;${code}m${text}\e[0m"
+    
 }
 
 echo_header() {
   local text="${*:1}"
+  local newline=true
+  if [[ $1 == "-n" ]]; then
+    newline=false
+    shift
+  fi
 
-  echo_colour_bold "blue" $text
+  if [[ $newline == false ]]; then
+    # \e[1;${code}m makes it bold and coloured
+    echo_colour_bold -n "blue" $text
+  else
+    echo_colour_bold "blue" $text
 }
 
 
@@ -158,6 +168,25 @@ garble_build() {
   
   echo "${tool_name} garbled"
 }
+
+clear
+
+echo_header "Updating package list"
+apt update
+clear
+
+echo_header "Upgrading packages"
+apt full-upgrade -y
+clear
+
+echo_header "Installing Kali core"
+apt install -y kali-linux-core
+clear
+
+echo_header "Installing basic packages"
+apt install -y which wget curl file git zip nano openssl tcpdump iproute2 net-tools xz-utils python3.13-venv nmap gnupg
+clear
+#apt install -y nikto peass gobuster sqlmap metasploit-framework chisel sqlmap
 
 echo_header "Basic configuration"
 
