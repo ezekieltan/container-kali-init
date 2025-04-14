@@ -32,7 +32,7 @@ echo_colour_bold() {
 echo_header() {
   local text=$1
 
-  echo_colour_bold 34 $text
+  echo_colour_bold "blue" $text
 }
 
 
