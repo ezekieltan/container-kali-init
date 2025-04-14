@@ -164,9 +164,9 @@ install() {
 
 # Function to download, extract, build, and encrypt a project
 garble_build() {
-  tool_name=$1  # specify the tool_name for extraction and other uses
-  target_directory=$2
-  random_seed_generated=$4
+  local tool_name=$1  # specify the tool_name for extraction and other uses
+  local target_directory=$2
+  local random_seed_generated=$4
 
   # Build the project
   echo_status -n "Garbling ${tool_name}..."
