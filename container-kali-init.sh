@@ -128,13 +128,13 @@ install() {
   fi
   
   # Download the archive/package/file
-  echo "Downloading ${tool_name}"
+  echo_colour_bold -n "green" "Downloading ${tool_name}..."
   wget -qO- ${url} -P ${target_directory} -O ${tool_name}.${extension}
-  echo "${tool_name} downloaded"
+  echo_colour_bold "green" "Done"
 
 
 
-  echo "Installing ${tool_name}"
+  echo_colour_bold -n "green" "Installing ${tool_name}..."
   if [[ ${url} =~ \.(tar\.gz|tar\.xz|zip)$ ]]; then
     install_archive $tool_name ${extension} $target_directory $backup_directory $strip_archive $encryption_password
   elif [[ ${url} =~ \.deb$ ]]; then
@@ -146,7 +146,7 @@ install() {
     return 1
   fi
   
-  echo "${tool_name} installed."
+   echo_colour_bold "green" "Done"
 }
 
 # Function to download, extract, build, and encrypt a project
@@ -156,7 +156,7 @@ garble_build() {
   random_seed_generated=$4
 
   # Build the project
-  echo "garbling ${tool_name}"
+  echo_colour_bold -n "green" "Garbling ${tool_name}..."
   cd ${target_directory}/${tool_name}
   if [ -n "$random_seed_generated" ]; then
       garble --seed="$random_seed_generated" build -o ${target_directory}/${tool_name}.elf
@@ -168,7 +168,7 @@ garble_build() {
   # Remove the unencrypted source code directory
   rm -rf ${target_directory}/${tool_name}
   
-  echo "${tool_name} garbled"
+  echo_colour_bold "green" "Done"
 }
 
 clear
