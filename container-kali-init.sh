@@ -27,7 +27,7 @@ echo_colour_bold() {
     echo -ne "\e[1;${code}m${text}\e[0m"
   else
     echo -e "\e[1;${code}m${text}\e[0m"
-    
+  fi
 }
 
 echo_header() {
@@ -43,6 +43,7 @@ echo_header() {
     echo_colour_bold -n "blue" $text
   else
     echo_colour_bold "blue" $text
+  fi
 }
 
 
