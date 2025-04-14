@@ -218,11 +218,11 @@ deepce_url="https://github.com/stealthcopter/deepce/raw/main/deepce.sh"
 install "deepce" $deepce_url $target_directory $backup_directory
 
 # Get ExtensiveRoleCheck
-wget https://raw.githubusercontent.com/cyberark/kubernetes-rbac-audit/refs/heads/master/ExtensiveRoleCheck.py -P ${target_directory} -O ExtensiveRoleCheck.py
+wget -q https://raw.githubusercontent.com/cyberark/kubernetes-rbac-audit/refs/heads/master/ExtensiveRoleCheck.py -P ${target_directory} -O ExtensiveRoleCheck.py
 
 # Get kubescore
 kubescore_version="1.19.0"
-wget https://github.com/zegl/kube-score/releases/download/v${kubescore_version}/kube-score_${kubescore_version}_linux_amd64 -P ${target_directory} -O kube-score_${kubescore_version}_linux_amd64.elf
+wget -q https://github.com/zegl/kube-score/releases/download/v${kubescore_version}/kube-score_${kubescore_version}_linux_amd64 -P ${target_directory} -O kube-score_${kubescore_version}_linux_amd64.elf
 
 
 
