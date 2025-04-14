@@ -10,7 +10,7 @@ clear
 
 echo_colour_bold() {
   local colour=$1
-  local text=$2
+  local text="${*:2}"
 
   # Define colour codes
   case "$colour" in
@@ -30,7 +30,7 @@ echo_colour_bold() {
 }
 
 echo_header() {
-  local text=$1
+  local text="${*:1}"
 
   echo_colour_bold "blue" $text
 }
