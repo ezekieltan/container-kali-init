@@ -1,13 +1,14 @@
 
 echo_colour_bold() {
-  local colour=$1
-  local text="${*:2}"
-
   local newline=true
   if [[ $1 == "-n" ]]; then
     newline=false
     shift
   fi
+  
+  local colour=$1
+  local text="${*:2}"
+
 
   # Define colour codes
   case "$colour" in
@@ -31,12 +32,12 @@ echo_colour_bold() {
 }
 
 echo_header() {
-  local text="${*:1}"
   local newline=true
   if [[ $1 == "-n" ]]; then
     newline=false
     shift
   fi
+  local text="${*:1}"
 
   if [[ $newline == false ]]; then
     # \e[1;${code}m makes it bold and coloured
