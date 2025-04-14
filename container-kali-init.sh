@@ -1,8 +1,40 @@
 apt update
+clear
 apt full-upgrade -y
+clear
 apt install -y kali-linux-core
+clear
 apt install -y which wget curl file git zip nano openssl tcpdump iproute2 net-tools xz-utils python3.13-venv nmap gnupg
+clear
 #apt install -y nikto peass gobuster sqlmap metasploit-framework chisel sqlmap
+
+echo_colour_bold() {
+  local colour=$1
+  local text=$2
+
+  # Define colour codes
+  case "$colour" in
+    black)   code=30 ;;
+    red)     code=31 ;;
+    green)   code=32 ;;
+    yellow)  code=33 ;;
+    blue)    code=34 ;;
+    magenta) code=35 ;;
+    cyan)    code=36 ;;
+    white)   code=37 ;;
+    *)       echo "Unknown colour: $colour"; return 1 ;;
+  esac
+
+  # \e[1;${code}m makes it bold and coloured
+  echo -e "\e[1;${code}m${text}\e[0m"
+}
+
+echo_header() {
+  local text=$1
+
+  echo_colour_bold 34 $text
+}
+
 
 install_deb() {
   local tool_name=$1
@@ -127,7 +159,7 @@ garble_build() {
   echo "${tool_name} garbled"
 }
 
-
+echo_header "Basic configuration"
 
 #INITAL SETUP
 target_directory="/root/software"
@@ -143,6 +175,7 @@ ${target_directory}/python-sandbox/venv/bin/pip install -q requests cryptography
 random_seed_generated=$(< /dev/urandom tr -dc 'A-Za-z0-9' | head -c 20)
 encryption_password="C0nv0lution(*)"
 
+echo_header "Downloading and installing tools"
 
 
 #DOWNLOADING ALL THE THINGS
