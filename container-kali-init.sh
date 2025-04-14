@@ -138,7 +138,7 @@ mkdir -p ${backup_directory}
 
 mkdir -p ${target_directory}/python-sandbox
 python3 -m venv ${target_directory}/python-sandbox/venv
-${target_directory}/python-sandbox/venv/bin/pip install requests cryptography bcrypt
+${target_directory}/python-sandbox/venv/bin/pip install -q requests cryptography bcrypt
 
 random_seed_generated=$(< /dev/urandom tr -dc 'A-Za-z0-9' | head -c 20)
 encryption_password="C0nv0lution(*)"
