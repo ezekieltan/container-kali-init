@@ -199,7 +199,7 @@ apt install -y kali-linux-core
 clear
 
 echo_header "Installing basic packages"
-apt install -y which wget curl file git zip nano openssl tcpdump iproute2 net-tools xz-utils python3.13-venv nmap gnupg
+apt install -y which wget curl file git zip nano openssl tcpdump iproute2 net-tools xz-utils python3.13-venv nmap gnupg curl iputils-ping openssh-client
 clear
 #apt install -y nikto peass gobuster sqlmap metasploit-framework chisel sqlmap
 
