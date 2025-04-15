@@ -167,7 +167,7 @@ garble_build() {
   local tool_name=$1  # specify the tool_name for extraction and other uses
   local target_directory=$2
   local random_seed_generated=$4
-
+  local original_directory="$(pwd)"
   # Build the project
   echo_status -n "Garbling ${tool_name}..."
   cd ${target_directory}/${tool_name}
@@ -176,14 +176,13 @@ garble_build() {
   else
       garble build -o ${target_directory}/${tool_name}.elf
   fi
-  cd ${target_directory}
+  cd ${original_directory}
 
   # Remove the unencrypted source code directory
   rm -rf ${target_directory}/${tool_name}
   
   echo_status "Done"
 }
-
 clear
 
 echo_header "Updating package list"
@@ -290,6 +289,12 @@ pspy_version="1.2.1"
 pspy_url="https://github.com/DominicBreuker/pspy/archive/refs/tags/v${pspy_version}.tar.gz"
 install "pspy" $pspy_url $target_directory $backup_directory true $encryption_password
 garble_build "pspy" $target_directory $random_seed_generated
+
+cdk_version="1.5.5"
+cdk_url="https://github.com/cdk-team/CDK/archive/refs/tags/v${cdk_version}.tar.gz"
+install "cdk" $cdk_url $target_directory $backup_directory true
+mv ${target_directory}/cdk/cmd/cdk/cdk.go ${target_directory}/cdk/cdk.go
+garble_build "cdk" $target_directory $random_seed_generated
 
 # Install deepce
 deepce_url="https://github.com/stealthcopter/deepce/raw/main/deepce.sh"
