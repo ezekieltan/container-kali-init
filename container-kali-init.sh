@@ -259,6 +259,7 @@ install "kubebench" $kubebench_url $target_directory $backup_directory
 kubescape_version="3.0.31"
 kubescape_url="https://github.com/kubescape/kubescape/releases/download/v${kubescape_version}/kubescape-ubuntu-latest.tar.gz"
 install "kubescape" $kubescape_url $target_directory $backup_directory
+${target_directory}/kubescape-ubuntu-latest download artifacts
 
 # Install and backup polaris
 polaris_version="9.6.2"
